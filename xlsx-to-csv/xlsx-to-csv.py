@@ -25,19 +25,31 @@ https://stackoverflow.com/questions/46081177/save-data-frame-as-csv-text-file-in
 https://stackoverflow.com/questions/65250207/pandas-cannot-open-an-excel-xlsx-file
 - Your version of xlrd is 2.0.1. In xlrd >= 2.0, only the xls format is supported. Install openpyxl instead.
 """
+
+
 def main():
-	if len(sys.argv) < 1:
-		print("ERROR: No arguments given.")
-	try:
-		for file_name in sys.argv[1:]:
-			start_time = time.time()
-			xlsx_df = pd.read_excel(file_name, engine='openpyxl') # Uses openpyxl to work with .xlsx files.
-			xlsx_df = xlsx_df.applymap(lambda x: x.strip() if isinstance(x, str) else x) # Deletes trailing whitespace.
-			tail = os.path.split(file_name)[1] # Splits the path into path_head and path_tail (filename and extension).
-			xlsx_df.to_csv(os.getcwd() + "/" + os.path.splitext(tail)[0] + ".csv", index=None) # Writes to a new .csv file.
-			execution_time = (time.time() - start_time)
-			print(f"Converting {file_name} took: {str(execution_time)} seconds.") # Prints the how long the conversion takes.
-	except:
-		print("ERROR: An error occured.")
+    if len(sys.argv) < 1:
+        print("ERROR: No arguments given.")
+    try:
+        for file_name in sys.argv[1:]:
+            start_time = time.time()
+            # Uses openpyxl to work with .xlsx files.
+            xlsx_df = pd.read_excel(file_name, engine='openpyxl')
+            # Deletes trailing whitespace.
+            xlsx_df = xlsx_df.applymap(
+                lambda x: x.strip() if isinstance(x, str) else x)
+            # Splits the path into path_head and path_tail (filename and extension).
+            tail = os.path.split(file_name)[1]
+            # Writes to a new .csv file.
+            xlsx_df.to_csv(os.getcwd() + "/" +
+                           os.path.splitext(tail)[0] + ".csv", index=None)
+            execution_time = (time.time() - start_time)
+            # Prints the how long the conversion takes.
+            print(
+                f"Converting {file_name} took: {str(execution_time)} seconds.")
+    except:
+        print("ERROR: An error occured.")
+
+
 if __name__ == "__main__":
-	main()
+    main()
