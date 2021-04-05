@@ -25,8 +25,6 @@ https://stackoverflow.com/questions/46081177/save-data-frame-as-csv-text-file-in
 https://stackoverflow.com/questions/65250207/pandas-cannot-open-an-excel-xlsx-file
 - Your version of xlrd is 2.0.1. In xlrd >= 2.0, only the xls format is supported. Install openpyxl instead.
 """
-
-
 def main():
     if len(sys.argv) < 1:
         print("ERROR: No arguments given.")
@@ -49,7 +47,6 @@ def main():
                 f"Converting {file_name} took: {str(execution_time)} seconds.")
     except:
         print("ERROR: An error occured.")
-
 
 if __name__ == "__main__":
     main()
